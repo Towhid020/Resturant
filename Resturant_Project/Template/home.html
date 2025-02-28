@@ -2,6 +2,7 @@
 
 {% load static %}
 {% block slider %}
+{% block home_status %}active{% endblock home_status %}
 
 <!-- slider section -->
 <section class="slider_section ">
@@ -440,37 +441,37 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form_container">
-          <form action="">
+          <form action="{% url "Book_Table" %}" method="POST">{% csrf_token %}
             <div>
-              <input type="text" class="form-control" placeholder="Your Name" />
+              <input type="text" class="form-control" name="user_name" required placeholder="Your Name" />
             </div>
             <div>
-              <input type="text" class="form-control" placeholder="Phone Number" />
+              <input type="text" class="form-control" name="user_number" required placeholder="Phone Number" />
             </div>
             <div>
-              <input type="email" class="form-control" placeholder="Your Email" />
+              <input type="email" class="form-control" name="user_email" required placeholder="Your Email" />
             </div>
             <div>
-              <select class="form-control nice-select wide">
+              <select class="form-control nice-select wide" required name="total_person">
                 <option value="" disabled selected>
                   How many persons?
                 </option>
-                <option value="">
+                <option value="2">
                   2
                 </option>
-                <option value="">
+                <option value="3">
                   3
                 </option>
-                <option value="">
+                <option value="4">
                   4
                 </option>
-                <option value="">
+                <option value="5">
                   5
                 </option>
               </select>
             </div>
             <div>
-              <input type="date" class="form-control">
+              <input type="date" class="form-control" required name="booking_date">
             </div>
             <div class="btn_box">
               <button>
@@ -499,9 +500,9 @@
         What Says Our Customers
       </h2>
     </div>
-    {% for k in review %}
     <div class="carousel-wrap row ">
       <div class="owl-carousel client_owl-carousel">
+        {% for k in review %}
         <div class="item">
           <div class="box">
             <div class="detail-box">
@@ -512,17 +513,17 @@
                 {{k.User_name}}
               </h6>
               <p>
-                {{k.Rating}}/5
+                Rating: {{k.Rating}}/5
               </p>
             </div>
             <div class="img-box">
-              <img src="{% static 'images/client1.jpg' %}" alt="" class="box-img">
+              <img src="/media/{{k.Image}}" alt="{{k.Image}}" class="box-img">
             </div>
           </div>
         </div>
+        {% endfor %}
       </div>
     </div>
-    {% endfor %}
   </div>
 </section>
 

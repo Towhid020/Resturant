@@ -24,6 +24,7 @@ class Feedback(models.Model):
     User_name = models.CharField(max_length=15)
     Description = models.TextField(blank=False)
     Rating = models.IntegerField() 
+    Image = models.ImageField(upload_to='Items/', blank=True)
     
     def __str__(self):
         return self.User_name
